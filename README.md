@@ -1,11 +1,18 @@
-# C project
+# C++ project
 
-I study C
+I study C++
 ```c++
-#include <stdio.h>
+#include <iostream>
+#define null NULL
 
-int main() {
-    printf("Hello, World\n");
+using namespace std;
+
+int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(null);
+    cout.tie(null);
+    
+    cout << "Hello, World!!\n";
     return 0;
 }
 ```
