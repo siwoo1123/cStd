@@ -1,35 +1,45 @@
+      //--------------------------------//
+     //                                //
+    //    2021.7.29 Thu ~ 2021.8.03   //
+   //               비숍              //
+  //           jungol.co.kr         //
+ //                                //
+//--------------------------------//
 #include <iostream>
 #define nil NULL
-#define DEBUG
 using namespace std;
 
-int paper[110][110], n;
+int bishop[15][15], n, cnt;
 
-void painting(int a, int b) {
-    for (int i = a; i < a+10; ++i) {
-        for (int j = b; j < b+10; ++j) {
-            paper[i][j] = 1;
-        }
+int dfs(int step){
+    if(step >= (n*2)-1){
+        return 1;
     }
-}
 
-void output(int x, int y, char md) {
-    if(md == '*') {
-        for (int i = 1; i <= x; ++i) {
-            for (int j = 1; j <= y; ++j) {
-                if(paper[i][j] == 1) cout << "* ";
-                else cout << "  ";
-            }
-            cout << "\n";
+    int x, y;
+    if(step <= n-1) {
+        x = step, y = 0;
+        for (int i = 0; i < n; ++i) {
+            if(bishop[step][i] == 0) continue;
+            bishop[x--][y++] = 0;
+            cnt++;
+            if(dfs(step+1) == 1) return 1;
+            cnt--;
+            bishop[x+1][y-1] = 1;
         }
     } else {
-        for (int i = 1; i <= x; ++i) {
-            for (int j = 1; j <= y; ++j) {
-                cout << paper[i][j] << " ";
-            }
-            cout << "\n";
+        x=n-1;
+        y = step+1-n;
+        for (int i = 0; i < n; ++i) {
+            if(bishop[step][i] == 0) continue;
+            bishop[x++][y--] = 0;
+            cnt++;
+            if(dfs(step+1) == 1) return 1;
+            cnt--;
+            bishop[x-1][y+1] = 1;
         }
     }
+    return 0;
 }
 
 int main(){
@@ -38,13 +48,12 @@ int main(){
     cout.tie(nil);
 
     cin >> n;
-    int o, t;
-    for (int i = 1; i <= n; ++i) {
-        cin >> o >> t;
-        painting(o, t);
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            cin >> bishop[i][j];
+        }
     }
-    #ifdef DEBUG
-    output(30, 30, '*');
-    output(30, 30, 'n');
-    #endif
+    dfs(0);
+    cout << cnt << "\n";
+    return 0;
 }

@@ -1,80 +1,9 @@
-katherine 97
-joanne 91
-jake 90
-jay 82
-sunny 79
-george 77
-amy 73
-adrian 71
-mike 67
-cynthia 52
-maya 51
-sal 43
-larry 42
-frank 40
-sal 40
-smith 38
-catherine 36
-john 34
-april 31
-don 30
-april 29
-jinny 29
-vivian 29
-john 26
-bartholomew 24
-joanne 23
-joanne 23
-dominic 22
-vivian 20
-wendy 18
-jon 17
-mike 13
-may 12
-april 8
-may 6
-john 5
-andrew 1
-bartholomew 1
-
-
-
-
-katherine 97
-joanne 91
-jake 90
-jay 82
-sunny 79
-george 77
-amy 73
-adrian 71
-mike 67
-cynthia 52
-maya 51
-sal 43
-larry 42
-sal 40
-frank 40
-smith 38
-catherine 36
-john 34
-april 31
-don 30
-jinny 29
-april 29
-vivian 29
-john 26
-bartholomew 24
-joanne 23
-joanne 23
-dominic 22
-vivian 20
-wendy 18
-jon 17
-mike 13
-may 12
-april 8
-may 6
-john 5
-bartholomew 1
-andrew 1
+1 3 5 4 6 9 2 7 8
+7 8 2 1 3 5 6 4 9
+4 6 9 2 7 8 1 3 5
+3 2 1 5 4 6 8 9 7
+8 7 4 9 1 3 5 2 6
+5 9 6 8 2 7 4 1 3
+9 1 7 6 5 2 3 8 4
+6 4 3 7 8 1 9 5 2
+2 5 8 3 9 4 7 6 1
