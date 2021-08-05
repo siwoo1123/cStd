@@ -1,59 +1,36 @@
-      //--------------------------------//
-     //                                //
-    //    2021.7.29 Thu ~ 2021.8.03   //
-   //               비숍              //
-  //           jungol.co.kr         //
- //                                //
-//--------------------------------//
+/*
+(----------------)
+ )              (
+(     DNA 조합    )
+ )   2021.8.5   (
+(                )
+ )--------------(
+ */
 #include <iostream>
-#define nil NULL
+#define null NULL
+
 using namespace std;
 
-int bishop[15][15], n, cnt;
+int n, ans=99999999;
+char dna[21][21];
 
-int dfs(int step){
-    if(step >= (n*2)-1){
-        return 1;
+void dfs(int step, int cnt) {
+    if(step >= n) {
+        if(ans > cnt) ans = cnt;
+        return;
     }
-
-    int x, y;
-    if(step <= n-1) {
-        x = step, y = 0;
-        for (int i = 0; i < n; ++i) {
-            if(bishop[step][i] == 0) continue;
-            bishop[x--][y++] = 0;
-            cnt++;
-            if(dfs(step+1) == 1) return 1;
-            cnt--;
-            bishop[x+1][y-1] = 1;
-        }
-    } else {
-        x=n-1;
-        y = step+1-n;
-        for (int i = 0; i < n; ++i) {
-            if(bishop[step][i] == 0) continue;
-            bishop[x++][y--] = 0;
-            cnt++;
-            if(dfs(step+1) == 1) return 1;
-            cnt--;
-            bishop[x-1][y+1] = 1;
-        }
-    }
-    return 0;
 }
 
-int main(){
+int main() {
     ios_base::sync_with_stdio(false);
-    cin.tie(nil);
-    cout.tie(nil);
+    cin.tie(null);
+    cout.tie(null);
 
     cin >> n;
     for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < n; ++j) {
-            cin >> bishop[i][j];
-        }
+        cin >> dna[i];
     }
-    dfs(0);
-    cout << cnt << "\n";
+
+    dfs(0, 0);
     return 0;
 }
