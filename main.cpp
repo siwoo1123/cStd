@@ -8,24 +8,16 @@
 (                )
  )--------------(
  */
-#include <iostream>
+#include <stdio.h>
 #include <string.h>
 #include <algorithm>
-#define null NULL
 
 using namespace std;
 
-int n, ans=99999999, arr[30], dnalen[30], totallen;
+int n, ans=999, arr[30], visit[30], dnalen[30], totallen;
 char dna[30][30];
 
-bool check(int what) {
-    for (int i = 0; i < n; ++i) {
-        if(arr[i] == what) return false;
-    }
-    return true;
-}
-
-int check2(int a, int b) {
+int check(int a, int b) {
     for(int i=min(dnalen[a], dnalen[b]); i>0; i--){
         int flag = 1;
         for(int j=0; j<i; j++){
@@ -41,10 +33,10 @@ int check2(int a, int b) {
     return 0;
 }
 
-bool update() {
+void update() {
     int res = totallen;
     for (int i = 0; i < n-1; ++i) {
-        res -= check2(arr[i], arr[i+1]);
+        res -= check(arr[i], arr[i+1]);
     }
     ans = min(ans, res);
 }
@@ -54,28 +46,24 @@ void dfs(int step) {
         update();
     } else {
         for (int i = 0; i < n; ++i) {
-            if(check(i)) {
+            if(!visit[i]) {
                 arr[step] = i;
+                visit[i] = 1;
                 dfs(step+1);
-                arr[step] = -1;
+                visit[i] = 0;
             }
         }
     }
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(null);
-    cout.tie(null);
-
-    cin >> n;
+    scanf("%d", &n);
     for (int i = 0; i < n; ++i) {
-        cin >> dna[i];
-        arr[i] = -1;
+        scanf(" %s", dna[i]);
         dnalen[i] = strlen(dna[i]);
         totallen += dnalen[i];
     }
     dfs(0);
-    cout << ans << "\n";
+    printf("%d\n", ans);
     return 0;
 }

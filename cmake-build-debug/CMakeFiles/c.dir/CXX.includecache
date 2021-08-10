@@ -7,7 +7,7 @@
 #IncludeRegexTransform: 
 
 /Users/apple/dev/c/CLion/c/main.cpp
-iostream
+stdio.h
 -
 string.h
 -
