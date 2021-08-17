@@ -2,7 +2,6 @@
 >백트래킹-DFS
 * DNA조합
 ```c++
-
 #include <stdio.h>
 #include <string.h>
 #include <algorithm>
@@ -113,3 +112,56 @@ return 0;
 ```
 
 >그래프탐색-DFS
+
+* 단지번호 붙이기
+```c++
+#include <iostream>
+#include <algorithm>
+
+using namespace std;
+
+struct Pos {
+int x, y;
+};
+
+int n, danjee, danjeeArr[30000], visit[30][30];
+char arr[30][30];
+
+int charToInt(char ch) {
+return ch - 48;
+}
+
+void dfs(Pos pos, int num) {
+int x = pos.x, y = pos.y;
+if(x < 0 || y < 0 || x >= n || y >= n || charToInt(arr[x][y]) == 0 || visit[x][y]) return;
+danjeeArr[num]++;
+visit[x][y] = 1;
+dfs({x, y+1}, num);
+dfs({x, y-1}, num);
+dfs({x+1, y}, num);
+dfs({x-1, y}, num);
+}
+
+int main() {
+cin >> n;
+for (int i = 0; i < n; ++i) {
+cin >> arr[i];
+}
+
+for (int i = 0; i < n; ++i) {
+for (int j = 0; j < n; ++j) {
+if(charToInt(arr[i][j]) == 1 && visit[i][j] == 0) {
+dfs({i, j}, ++danjee);
+}
+}
+}
+sort(danjeeArr+1, danjeeArr+danjee+1);
+cout << danjee << "\n";
+for (int i = 1; i <= danjee; ++i) {
+cout << danjeeArr[i] << "\n";
+}
+
+return 0;
+}
+
+```
