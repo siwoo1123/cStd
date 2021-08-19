@@ -1,4 +1,4 @@
-# C++ project
+# ![](hd_logo.png)  Intermediate_Coder ~ 
 >백트래킹-DFS
 * DNA조합
 ```c++
