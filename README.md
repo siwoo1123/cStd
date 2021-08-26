@@ -422,3 +422,124 @@ void chb(vector<int> & arr) {
     arr.back() = tmp;
 }
 ```
+* 미로 탐색
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+
+int n, m;
+
+int visit[100100];
+vector<vector<int>> v;
+
+bool isNotGo(int po) {
+    return !visit[po];
+}
+
+bool isAllGo() {
+    vector<int> allNum;
+    for (int i = 1; i <= n; ++i) {
+        allNum.push_back(i);
+    }
+    for (int x : allNum) {
+        if(isNotGo(x)) return false;
+    }
+    return true;
+}
+
+void dfs(int room) {
+    cout << room << " ";
+    visit[room] = 1;
+    for (int x : v[room]) {
+        if(isNotGo(x)) {
+            dfs(x);
+        }
+    }
+}
+
+int main() {
+    setting;
+    cin >> n >> m;
+    v.resize(n+1);
+    for (int i = 0; i < m; ++i) {
+        int ele, po;
+        cin >> po >> ele;
+        v[po].push_back(ele);
+        v[ele].push_back(po);
+    }
+    for (int i = 0; i <= n; ++i) {
+        sort(v[i].begin(), v[i].end());
+    }
+
+    dfs(1);
+
+    return 0;
+}
+```
+* 키순서
+```c++
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+
+vector<vector<int>> big, small;
+
+int sv[505], bv[505], ans, smresult[505], biresult[505];
+
+int n, m;
+
+void smdfs(int a, int b) {
+sv[b] = 1;
+smresult[a]++;
+for (int x : small[b]) {
+if(!sv[x]) {
+smdfs(a, x);
+}
+}
+}
+
+void bidfs(int a, int b){
+bv[b] = 1;
+biresult[a]++;
+for (int x : big[b]) {
+if(!bv[x]) {
+bidfs(a, x);
+}
+}
+}
+
+int main(){
+setting;
+cin >> n >> m;
+big.resize(n+2);
+small.resize(n+2);
+for (int i = 0; i < m; ++i) {
+int a, b;
+cin >> a >> b;
+small[b].push_back(a);
+big[a].push_back(b);
+}
+
+for (int i = 1; i <= n; ++i) {
+for (int j = 1; j <= n; ++j) {
+sv[j] = bv[j] = 0;
+}
+smdfs(i, i);
+bidfs(i, i);
+}
+
+for (int i = 1; i <= n; ++i) {
+if(((smresult[i] + biresult[i]) - 1) == n) ans++;
+}
+
+cout << ans << "\n";
+
+return 0;
+}
+
+```
