@@ -591,3 +591,42 @@ int main() {
     return 0;
 }
 ```
+* 두 로봇
+```c++
+#include <iostream>
+#include <vector>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+struct Data {int po, dis;};
+int n, r1, r2, visit[100010];
+vector<vector<Data>> map(100010);
+
+void dfs(int po, int sum, int big) {
+    if(po == r2) {
+        cout << sum - big << "\n";
+        return;
+    }
+    visit[po] = 1;
+
+    for (Data x : map[po]) {
+        if(visit[x.po]) continue;
+        if(big < x.dis) dfs(x.po, sum+x.dis, x.dis);
+        else dfs(x.po, sum+x.dis, big);
+    }
+}
+
+int main() {
+    setting;
+    cin >> n >> r1 >> r2;
+    for (int i = 1; i <= n-1; ++i) {
+        int a, b, p;
+        cin >> a >> b >> p;
+        map[a].push_back({b, p});
+        map[b].push_back({a, p});
+    }
+
+    dfs(r1, 0, 0);
+
+}
+```
+> 그래프탐색-BFS
