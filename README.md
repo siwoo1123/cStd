@@ -747,3 +747,57 @@ int main() {
     return 0;
 }
 ```
+* 보물섬
+```c++
+#include <stdio.h>
+#include <memory.h>
+using namespace std;
+
+char board[55][55];
+int n, m, ans;
+struct Que {
+    int r, c;
+    int cnt;
+} que[55*55];
+int front, rear;
+int visit[55][55];
+int dr[] = {-1, 0, 1, 0};
+int dc[] = {0, 1, 0, -1};
+
+void push(Que ipt) {
+    if(visit[ipt.r][ipt.c] || board[ipt.r][ipt.c] != 'L') return;
+    visit[ipt.r][ipt.c] = 1;
+    que[rear++] = ipt;
+}
+
+int bfs(int r, int c){
+    memset(visit, 0, sizeof(visit));
+    front = rear = 0;
+    push({r, c, 0});
+    while(front < rear) {
+        Que now = que[front++];
+        for (int i = 0; i < 4; ++i) {
+            push({ now.r + dr[i], now.c + dc[i], now.cnt + 1 });
+        }
+    }
+    return que[front-1].cnt;
+}
+
+int main() {
+    scanf("%d %d", &n, &m);
+    for (int i = 1; i <= n; ++i) {
+        scanf("%s", board[i]+1);
+    }
+
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            if(board[i][j] == 'L') {
+                int dist = bfs(i, j);
+                if(ans < dist) ans = dist;
+            }
+        }
+    }
+    printf("%d\n", ans);
+    return 0;
+}
+```
