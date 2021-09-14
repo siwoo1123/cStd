@@ -684,3 +684,66 @@ int main() {
     return 0;
 }
 ```
+* 저글링 방사능 오염
+```c++
+#include <iostream>
+#include <stdio.h>
+#define setting ios_base :: sync_with_stdio(false);cout.tie(NULL)
+using namespace std;
+
+int ipt[110][110];
+int x, y, visit[110][110], dX, dY, head, tail;
+int mx[4] = {0, 0, -1, 1}, my[4] = {-1, 1, 0, 0};
+
+struct Que{
+    int x, y, pack;
+} que[10010];
+
+bool Ok(int xf, int yf) {
+    if(visit[xf][yf] == 1) return false;
+    if(xf <= 0 || yf <= 0 || xf > x || yf > y) return false;
+    return true;
+}
+
+void push(Que ipts) {
+    if(Ok(ipts.x, ipts.y)) {
+        que[tail++] = ipts;
+        visit[ipts.x][ipts.y] = 1;
+    }
+}
+
+void bfs() {
+    while (1) {
+        for (int i = 0; i < 4; ++i) {
+            int nx = que[head].x + mx[i], ny = que[head].y + my[i];
+            if((nx <= 0 || ny <= 0 || nx > x || ny > y) || ipt[nx][ny] == 0 || visit[nx][ny]) continue;
+            push({nx, ny, que[head].pack+1});
+        }
+        head++;
+        if(head == tail) break;
+    }
+    cout << que[head-1].pack << "\n";
+}
+
+int main() {
+    setting;
+    scanf("%d %d", &y, &x);
+    for (int i = 1; i <= x; ++i) {
+        for (int j = 1; j <= y; ++j) {
+            scanf("%1d", &ipt[i][j]);
+        }
+    }
+    scanf("%d %d", &dY, &dX);
+
+    push({dX, dY, 3});
+    bfs();
+    int a=0;
+    for (int i = 1; i <= x; ++i) {
+        for (int j = 1; j <= y; ++j) {
+            if(visit[i][j] == 0 && ipt[i][j] == 1) a++;
+        }
+    }
+    cout << a << "\n";
+    return 0;
+}
+```
