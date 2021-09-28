@@ -1,52 +1,81 @@
 #include <stdio.h>
+#define DEBUGG
 using namespace std;
 
-int tomatos[1010][1010];
-int n, m;
 struct Que {
-    int r, c;
-    int cnt;
-} que[1010*1010];
+  int r, c, cnt;
+  char fireOrPlayer;
+} que[3027];
+struct {int r, c;} D;
+int visit[55][55], r, c, ans = -1;
 int front, rear;
-int visit[1010][1010];
-int dr[] = {-1, 0, 1, 0};
-int dc[] = {0, 1, 0, -1};
+char ipt[55][55];
+int dc[4] = {1, 0, -1, 0};
+int dr[4] = {0, 1, 0, -1};
 
-
-void push(Que ipt) {
-    if(visit[ipt.r][ipt.c] || ipt.r < 0 || ipt.c < 0 || ipt.r >= n || ipt.c >= m || tomatos[ipt.r][ipt.c] == -1) return;
-    visit[ipt.r][ipt.c] = 1;
-    que[rear++] = ipt;
+void OV() {
+    printf("=======================\n");
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            if(visit[i][j] == 0) {
+                printf("  ");
+                continue;
+            }
+            printf("%d ", visit[i][j]);
+        }
+        printf("\n");
+    }
+    printf("=======================\n");
 }
 
-int bfs(){
-    while(front < rear) {
-        Que h = que[front];
+void push(Que pq) {
+    if(pq.r < 0 || pq.c < 0 || pq.r >= r || pq.c >= c || visit[pq.r][pq.c] == 1 || (pq.fireOrPlayer == 'f' && visit[pq.r][pq.c] == 2)) return;
+    if(visit[pq.r][pq.c] == 2) ans = pq.cnt;
+    visit[pq.r][pq.c]=1;
+    que[rear++] = pq;
+}
+
+int bfs() {
+    while (front < rear) {
+        Que h = que[front++];
         for (int i = 0; i < 4; ++i) {
-            push({h.r+dr[i], h.c+dc[i], h.cnt+1});
-        }
-        front++;
-    }
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            if(visit[i][j]==0&&tomatos[i][j]==0) return -1;
+            push({h.r+dr[i], h.c+dc[i], h.cnt+1, h.fireOrPlayer});
         }
     }
-    return que[front - 1].cnt;
+    return ans;
 }
 
-int main () {
-    scanf("%d %d", &m, &n);
-    for (int i = 0; i < n; ++i) {
-        for (int j = 0; j < m; ++j) {
-            scanf("%d", &tomatos[i][j]);
-            if(tomatos[i][j]==1) {
-                push({i, j, 0});
+int main() {
+    scanf("%d %d", &r, &c);
+    for (int i = 0; i < r; ++i) {
+        scanf("%s", ipt[i]);
+    }
+
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            if(ipt[i][j] == '*') {
+                push({i, j, 0, 'f'});
+            } else if(ipt[i][j] == 'X') {
+                visit[i][j] = 1;
+            } else if(ipt[i][j] == 'D') {
+                visit[i][j] = 2;
             }
         }
     }
 
-    printf("%d\n", bfs());
+    for (int i = 0; i < r; ++i) {
+        for (int j = 0; j < c; ++j) {
+            if(ipt[i][j] == 'S') {
+                push({i, j, 0, 'p'});
+            }
+        }
+    }
 
+    int result = bfs();
+    if(result == -1) {
+        printf("impossible\n");
+    } else {
+        printf("%d\n", result);
+    }
     return 0;
 }
