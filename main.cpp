@@ -1,81 +1,63 @@
-#include <stdio.h>
-#define DEBUGG
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
-struct Que {
-  int r, c, cnt;
-  char fireOrPlayer;
-} que[3027];
-struct {int r, c;} D;
-int visit[55][55], r, c, ans = -1;
-int front, rear;
-char ipt[55][55];
-int dc[4] = {1, 0, -1, 0};
-int dr[4] = {0, 1, 0, -1};
+int n, k;
+char ipt[1010][35];
+int a, b;
+struct Q {
+    int h, ah;
+} que[1010];
+int head, tail, visit[1010];
 
-void OV() {
-    printf("=======================\n");
-    for (int i = 0; i < r; ++i) {
-        for (int j = 0; j < c; ++j) {
-            if(visit[i][j] == 0) {
-                printf("  ");
-                continue;
-            }
-            printf("%d ", visit[i][j]);
+void push(Q q) {
+    if(visit[q.h]) return;
+    if(q.ah >= 0) {
+        int dif = 0;
+        for (int i = 0; i < k; ++i) {
+            if (ipt[q.h][i] != ipt[que[q.ah].h][i]) dif++;
         }
-        printf("\n");
+        if(dif != 1) return;
     }
-    printf("=======================\n");
+
+    que[tail++] = q;
+    visit[q.h] = 1;
 }
 
-void push(Que pq) {
-    if(pq.r < 0 || pq.c < 0 || pq.r >= r || pq.c >= c || visit[pq.r][pq.c] == 1 || (pq.fireOrPlayer == 'f' && visit[pq.r][pq.c] == 2)) return;
-    if(visit[pq.r][pq.c] == 2) ans = pq.cnt;
-    visit[pq.r][pq.c]=1;
-    que[rear++] = pq;
+void bfs() {
+    push({a, -1});
+    while (head < tail) {
+        Q h = que[head++];
+        if(h.h == b) {
+            vector<int> ans;
+            for (int i = head-1; i >= 0; i=que[i].ah) {
+                ans.push_back(que[i].h);
+            }
+            reverse(ans.begin(), ans.end());
+            for (int x : ans) {
+                cout << x << " ";
+            }
+            cout << "\n";
+            return;
+        }
+        for (int i = 1; i <= n; ++i) {
+            push({i, head-1});
+        }
+    }
+    cout << "-1\n";
 }
 
-int bfs() {
-    while (front < rear) {
-        Que h = que[front++];
-        for (int i = 0; i < 4; ++i) {
-            push({h.r+dr[i], h.c+dc[i], h.cnt+1, h.fireOrPlayer});
-        }
+int main(){
+    setting;
+    cin >> n >> k;
+    for (int i = 1; i <= n; ++i) {
+        cin >> ipt[i];
     }
-    return ans;
-}
+    cin >> a >> b;
 
-int main() {
-    scanf("%d %d", &r, &c);
-    for (int i = 0; i < r; ++i) {
-        scanf("%s", ipt[i]);
-    }
+    bfs();
 
-    for (int i = 0; i < r; ++i) {
-        for (int j = 0; j < c; ++j) {
-            if(ipt[i][j] == '*') {
-                push({i, j, 0, 'f'});
-            } else if(ipt[i][j] == 'X') {
-                visit[i][j] = 1;
-            } else if(ipt[i][j] == 'D') {
-                visit[i][j] = 2;
-            }
-        }
-    }
-
-    for (int i = 0; i < r; ++i) {
-        for (int j = 0; j < c; ++j) {
-            if(ipt[i][j] == 'S') {
-                push({i, j, 0, 'p'});
-            }
-        }
-    }
-
-    int result = bfs();
-    if(result == -1) {
-        printf("impossible\n");
-    } else {
-        printf("%d\n", result);
-    }
     return 0;
 }

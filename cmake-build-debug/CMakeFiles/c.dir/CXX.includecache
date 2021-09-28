@@ -7,6 +7,10 @@
 #IncludeRegexTransform: 
 
 /Users/apple/dev/c/CLion/c/main.cpp
-stdio.h
+iostream
+-
+vector
+-
+algorithm
 -
 
