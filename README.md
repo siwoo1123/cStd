@@ -889,7 +889,7 @@ void OV() {
 }
 
 void push(Que pq) {
-    if(pq.r < 0 || pq.c < 0 || pq.r >= r || pq.c >= c || visit[pq.r][pq.c] == 1 || (pq.fireOrPlayer == 'f' && visit[pq.r][pq.c] == 2)) return;
+    if(pq.r < 0 || pq.c < 0 || pq.r >= r || pq.c >= c || visit[pq.r][pq.c] == 1 || (pq.fireOrPlayer == 'fin' && visit[pq.r][pq.c] == 2)) return;
     if(visit[pq.r][pq.c] == 2) ans = pq.cnt;
     visit[pq.r][pq.c]=1;
     que[rear++] = pq;
@@ -914,7 +914,7 @@ int main() {
     for (int i = 0; i < r; ++i) {
         for (int j = 0; j < c; ++j) {
             if(ipt[i][j] == '*') {
-                push({i, j, 0, 'f'});
+                push({i, j, 0, 'fin'});
             } else if(ipt[i][j] == 'X') {
                 visit[i][j] = 1;
             } else if(ipt[i][j] == 'D') {
@@ -1003,6 +1003,94 @@ int main(){
 
     bfs();
 
+    return 0;
+}
+```
+* 소수와 함깨하는 여행
+```c++
+#include <iostream>
+#include <math.h>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+
+int sosu[10011], ss, fs, front, rear, ans, visit[10010];
+struct Q {
+    int b, h;
+} que[10010];
+
+void Eratos()
+{
+    sosu[0]=sosu[1]=1;
+    for (int i = 2; i <= 100; ++i) {
+        if(sosu[i]==0) {
+            for (int j = i*i; j <= 10000; j+=i) {
+                sosu[j]=1;
+            }
+        }
+    }
+}
+
+void push(Q q) {
+    if(visit[q.h] || sosu[q.h]) return;
+    que[rear++] = q;
+    visit[q.h] = 1;
+}
+
+void bfs() {
+    push({-1, ss});
+    while (front < rear) {
+        Q h = que[front];
+        if(h.h == fs) {
+            for (int i = front; i > 0; i=que[i].b) {
+                ans++;
+            }
+            return;
+        }
+        int o = h.h % 10;
+        int t = (h.h % 100) / 10;
+        int T = (h.h / 100) % 10;
+        int f = h.h / 1000;
+        for (int i = 1; i <= 9; ++i) {
+            if(o + i <= 9) {
+                push({front, (f*1000)+(T*100)+(t*10)+(o+i)});
+            }
+            if(t + i <= 9) {
+                push({front, (f*1000)+(T*100)+((t+i)*10)+o});
+            }
+            if(T + i <= 9) {
+                push({front, (f*1000)+((T+i)*100)+(t*10)+o});
+            }
+            if(f + i <= 9) {
+                push({front, ((f+i)*1000)+(T*100)+(t*10)+o});
+            }
+            if(o - i >= 0) {
+                push({front, (f*1000)+(T*100)+(t*10)+(o-i)});
+            }
+            if(t - i >= 0) {
+                push({front, (f*1000)+(T*100)+((t-i)*10)+o});
+            }
+            if(T - i >= 0) {
+                push({front, (f*1000)+((T-i)*100)+(t*10)+o});
+            }
+            if(f - i > 9) {
+                push({front, ((f-i)*1000)+(T*100)+(t*10)+o});
+            }
+        }
+        front++;
+    }
+}
+
+int main() {
+    setting;
+    Eratos();
+    cin >> ss >> fs;
+    if(ss > fs) {
+        int tmp = ss;
+        ss = fs;
+        fs = tmp;
+    }
+    bfs();
+    cout << ans << "\n";
     return 0;
 }
 ```
