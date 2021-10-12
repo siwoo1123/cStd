@@ -1,4 +1,5 @@
 # ![](hd_logo.png)
+* CLion return code 138 (interrupted by signal 10: SIGBUS) = Runtime Error:Segmentation fault
 >백트래킹-DFS
 * DNA조합
 ```c++
@@ -1109,6 +1110,66 @@ int main() {
     }
     bfs();
     cout << ans << "\n";
+    return 0;
+}
+// [출처] https://github.com/siwoo1123/cStd
+```
+* 로봇
+```c++
+#include <iostream>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+
+int n, m, front, rear, visit[110][110][5];
+int ipt[110][110];
+struct {int n, m, s;} s, f;
+struct Q {
+    int n, m, s, b;
+} que[50000];
+
+int dn[5] = { 0, 0, 0, 1, -1 };
+int dm[5] = { 0, 1, -1, 0, 0 };
+
+void push(Q i) {
+    if(visit[i.n][i.m][i.s]) return;
+    visit[i.n][i.m][i.s] = 1;
+    que[rear++] = i;
+}
+
+int bfs() {
+    push({s.n, s.m, s.s, 0});
+    while(front < rear) {
+        Q h = que[front++];
+        if(h.n == f.n && h.m == f.m && h.s == f.s) return h.b;
+        if(h.s < 3) {
+            push({h.n, h.m, 4, h.b+1});
+            push({h.n, h.m, 3, h.b+1});
+        } else {
+            push({h.n, h.m, 2, h.b+1});
+            push({h.n, h.m, 1, h.b+1});
+        }
+        int nn = h.n, nm = h.m;
+        for (int i = 1; i <= 3; ++i) {
+            nn += dn[h.s], nm += dm[h.s];
+            if(nn <= 0 || nm <= 0 || nn > n || nm > m || ipt[nn][nm]) break;
+            push({nn, nm, h.s, h.b+1});
+        }
+    }
+    return 0;
+}
+
+int main() {
+    setting;
+    cin >> n >> m;
+    for (int i = 1; i <= n; ++i) {
+        for (int j = 1; j <= m; ++j) {
+            cin >> ipt[i][j];
+        }
+    }
+    cin >> s.n >> s.m >> s.s;
+    cin >> f.n >> f.m >> f.s;
+
+    cout << bfs() << "\n";
     return 0;
 }
 // [출처] https://github.com/siwoo1123/cStd
