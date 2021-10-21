@@ -1174,3 +1174,106 @@ int main() {
 }
 // [출처] https://github.com/siwoo1123/cStd
 ```
+* 버스 갈아타기
+![](2578(버스갈아타기)-JungOl.png)
+```c++
+#include <iostream>
+#include <vector>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+ 
+int n, m, k;
+vector<int> fb;
+struct Pos {int x, y;};
+struct Bus {
+    Pos s, c;
+} buses[5010];
+struct Q {
+    int bus, cnt;
+} que[5010];
+int front, rear, visit[5010];
+ 
+bool canTransform(int a, int b) {
+    if (buses[a].c.x < buses[b].s.x) {
+        return false;
+    }
+    if (buses[b].c.x < buses[a].s.x) {
+        return false;
+    }
+    if (buses[a].c.y < buses[b].s.y) {
+        return false;
+    }
+    if (buses[b].c.y < buses[a].s.y) {
+        return false;
+    }
+    return true;
+}
+ 
+bool isAnswer(Q h) {
+ 
+    return false;
+}
+ 
+void push(Q ipt) {
+    if(visit[ipt.bus]) return;
+    que[rear++] = ipt;
+    visit[ipt.bus] = 1;
+}
+ 
+void bfs() {
+    push({0, 0});
+    while (front < rear) {
+        Q h = que[front++];
+        for (int x : fb) {
+            if(h.bus == x) {
+                cout << h.cnt << "\n";
+                return;
+            }
+        }
+        for (int i = 1; i <= k; ++i) {
+            if(canTransform(h.bus, i)) {
+                push({i, h.cnt+1});
+            }
+        }
+    }
+}
+ 
+int main() {
+    setting;
+    cin >> m >> n >> k;
+    for (int i = 1; i <= k; ++i) {
+        int tmp = 0;
+        cin >> tmp;
+        cin >> buses[tmp].s.x >> buses[tmp].s.y >> buses[tmp].c.x >> buses[tmp].c.y;
+        if((buses[tmp].s.x > buses[tmp].c.x) || (buses[tmp].s.y > buses[tmp].c.y)){
+            Pos immsi = buses[tmp].s;
+            buses[tmp].s = buses[tmp].c;
+            buses[tmp].c = immsi;
+        }
+    }
+    Pos s, f;
+    cin >> s.x >> s.y >> f.x >> f.y;
+    buses[0].s = {s.x, s.y};
+    buses[0].c = {s.x, s.y};
+    for (int i = 1; i <= k; ++i) {
+        if(buses[i].s.y == buses[i].c.y) {
+            for (int j = buses[i].s.x; j <= buses[i].c.x; ++j) {
+                if(f.x == j && f.y == buses[i].s.y) {
+                    fb.push_back(i);
+                    break;
+                }
+            }
+        } else {
+            for (int j = buses[i].s.y; j <= buses[i].c.y; ++j) {
+                if(f.y == j && f.x == buses[i].s.x) {
+                    fb.push_back(i);
+                    break;
+                }
+            }
+        }
+    }
+    bfs();
+    return 0;
+}
+// [출처] https://github.com/siwoo1123/cStd
+```
