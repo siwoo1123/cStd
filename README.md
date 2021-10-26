@@ -1277,3 +1277,101 @@ int main() {
 }
 // [출처] https://github.com/siwoo1123/cStd
 ```
+> 탐욕알고리즘
+* Tutorial : 그리디(Greedy - 탐욕, 욕심쟁이) 알고리즘
+```c++
+#include <iostream>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+//  1  2  4  8 16  g
+int a, b, c, d, e, n;
+int result[6] = {
+       //  1  2  4  8 16
+        0, 0, 0, 0, 0, 0
+};
+int ans;
+
+int main() {
+    setting;
+    cin >> a >> b >> c >> d >> e >> n;
+    for (int i = 1; i <= e; ++i) {
+        if((n)/16 > 0) {
+            n-=16;
+            result[5]++;
+        } else break;
+    }
+    for (int i = 1; i <= d; ++i) {
+        if((n)/8 > 0) {
+            n-=8;
+            result[4]++;
+        } else break;
+    }
+    for (int i = 1; i <= c; ++i) {
+        if((n)/4 > 0) {
+            n-=4;
+            result[3]++;
+        } else break;
+    }
+    for (int i = 1; i <= b; ++i) {
+        if((n)/2 > 0) {
+            n-=2;
+            result[2]++;
+        } else break;
+    }
+    for (int i = 1; i <= a; ++i) {
+        if((n)/1 > 0) {
+            n-=1;
+            result[1]++;
+        } else break;
+    }
+    if(n > 0 || n < 0) {
+        cout << "impossible" << "\n";
+        return 0;
+    }
+
+    for (int i = 1; i <= 5; ++i) {
+        ans+=result[i];
+    }
+
+    cout << ans << "\n";
+
+    return 0;
+}
+// [출처] https://github.com/siwoo1123/cStd
+```
+* 외양간
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+using namespace std;
+
+int m, s, c, livedCowPo[210];
+vector<int> gangok;
+
+int main() {
+    setting;
+    cin >> m >> s >> c;
+    for (int i = 0; i < c; ++i) {
+        cin >> livedCowPo[i];
+    }
+    if(m > c) {
+        m = c;
+    }
+    sort(livedCowPo, livedCowPo+c);
+    for (int i = c-1; i > 0; --i) {
+        gangok.push_back(livedCowPo[i] - livedCowPo[i-1]);
+    }
+    s = livedCowPo[c-1] - livedCowPo[0] + 1;
+    sort(gangok.begin(), gangok.end());
+    reverse(gangok.begin(), gangok.end());
+    for (int i = 0; i < m-1; ++i) {
+        s -= gangok[i] - 1;
+    }
+    cout << s << "\n";
+    return 0;
+}
+
+// [출처] https://github.com/siwoo1123/cStd
+```
