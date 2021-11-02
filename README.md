@@ -1375,3 +1375,83 @@ int main() {
 
 // [출처] https://github.com/siwoo1123/cStd
 ```
+* 회의실 배정
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#define setting ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+//#define DEBUG
+using namespace std;
+ 
+int n, time_C = 0;
+struct Meeting {
+    int id, start, finish;
+    bool operator<( Meeting r ) {
+        if(finish == r.finish) {
+            return start < r.start;
+        }
+        return finish < r.finish;
+    }
+} meets[510];
+vector<int> pcNunMac;
+#ifdef DEBUG
+struct DebugTool {
+    void OutputList(char a[] ) {
+        cout << "==========" << a << "==========\n";
+        for (int i = 1; i <= n; i++) {
+            cout << meets[i].id << " " <<meets[i].start << " " << meets[i].finish << "\n";
+        }
+        cout << "=========================\n";
+    }
+    void printAll() {
+        cout << "\n==========DEBUG==========\n";
+        cout << "n: " << n << " time: " << time_C << "\n";
+        cout << "=========================\n";
+    }
+    void printPcNunMac() {
+        cout << "\n==========DEBUG==========\n";
+        for(int x : pcNunMac) {
+            cout << x << " ";
+        }
+        cout << "\n";
+        cout << "=========================\n";
+    }
+} debugTool;
+ #endif
+ 
+int main()
+{
+    setting
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        int a;
+        cin >> a;
+        meets[a].id = a;
+        cin >> meets[a].start >> meets[a].finish;
+    }
+    sort(meets+1, meets+(n+1));
+    #ifdef DEBUG
+        debugTool.OutputList("DEBUG");
+    #endif // DEBUG
+    for (int i = 1; i <= n; i++) {
+        #ifdef DEBUG
+            debugTool.printAll();
+        #endif // DEBUG
+        if(meets[i].start >= time_C) {
+            time_C = meets[i].finish;
+            pcNunMac.push_back(meets[i].id);
+            #ifdef DEBUG
+                debugTool.printPcNunMac();
+            #endif // DEBUG
+        }
+    }
+    cout << pcNunMac.size() << "\n";
+    for(int x : pcNunMac) {
+            cout << x << " ";
+    }
+    cout << "\n";
+    return 0;
+}
+// [출처] https://github.com/siwoo1123/cStd
+```
