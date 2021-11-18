@@ -1,5 +1,65 @@
 # ![](hd_logo.png)
 * CLion return code 138 (interrupted by signal 10: SIGBUS) = Runtime Error:Segmentation fault
+
+>Tool
+* Vector Tool
+```c++
+struct ToolWithVector {
+    void print(vector<int> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<long> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<long long> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<char> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i];
+        }
+        cout << "\n";
+    }
+    void print(vector<double> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<float> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    int max(vector<int> a, int s, int f) {
+        //      2147483647
+        int b = 0000000000;
+        for (int i = s; i < f; ++i) {
+            if(a[i] > b) b=a[i];
+        }
+        return b;
+    }
+    int min(vector<int> a, int s, int f) {
+        //      2147483647
+        int b = 2147483647;
+        for (int i = s; i < f; ++i) {
+            if(a[i] < b) b=a[i];
+        }
+        return b;
+    }
+} VecTool;
+```
+
 >백트래킹-DFS
 * DNA조합
 ```c++
@@ -173,7 +233,7 @@ return 0;
 ```c++
 #include <iostream>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 
 using namespace std;
 
@@ -199,7 +259,7 @@ void dfs(Po po, int num) {
 }
 
 int main(){
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> m >> n >> k;
     for (int i = 0; i < k; ++i) {
         cin >> namo[i].x1 >> namo[i].y1 >> namo[i].x2 >> namo[i].y2;
@@ -234,7 +294,7 @@ int main(){
 * 치즈
 ```c++
 #include <iostream>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 
 using namespace std;
 
@@ -277,7 +337,7 @@ void dfs(int x, int y) {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> m;
     for (int i = 0; i < n; ++i) {
         for (int j = 0; j < m; ++j) {
@@ -342,7 +402,7 @@ int main()
 ```c++
 #include <iostream>
 #include <vector>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 
 using namespace std;
 
@@ -351,7 +411,7 @@ vector<vector<int>> v;
 
 
 int main(){
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n;
     for (int i = 0; i < n; ++i) {
         int len;
@@ -380,7 +440,7 @@ int main(){
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 
 using namespace std;
 
@@ -392,7 +452,7 @@ bool isNotEmpty(vector<int> & arr) {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
 
     int n, x;
     char cmd;
@@ -436,7 +496,7 @@ void chb(vector<int> & arr) {
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 int n, m;
@@ -470,7 +530,7 @@ void dfs(int room) {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> m;
     v.resize(n+1);
     for (int i = 0; i < m; ++i) {
@@ -494,7 +554,7 @@ int main() {
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 vector<vector<int>> big, small;
@@ -524,7 +584,7 @@ bidfs(a, x);
 }
 
 int main(){
-setting;
+INPUT_OUTPUT_SETTING;
 cin >> n >> m;
 big.resize(n+2);
 small.resize(n+2);
@@ -557,7 +617,7 @@ return 0;
 ```c++
 #include <iostream>
 #include <vector>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 vector<vector<int>> big, small;
@@ -584,7 +644,7 @@ void bidfs(int a, int b){
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> m >> x;
     big.resize(n+2); small.resize(n+2);
     for (int i = 0; i < m; ++i) {
@@ -607,7 +667,7 @@ int main() {
 ```c++
 #include <iostream>
 #include <vector>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 struct Data {int po, dis;};
 int n, r1, r2, visit[100010];
@@ -628,7 +688,7 @@ void dfs(int po, int sum, int big) {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> r1 >> r2;
     for (int i = 1; i <= n-1; ++i) {
         int a, b, p;
@@ -646,7 +706,7 @@ int main() {
 * 장기2
 ```c++
 #include <iostream>
-#define setting ios_base :: sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base :: sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL)
 using namespace std;
 
 int n, m, r, c, s, k, visit[1010][1010], head, tail;
@@ -688,7 +748,7 @@ void bfs() {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> m;
     cin >> r >> c >> s >> k;
     pushQ(que, {r, c, 0});
@@ -702,7 +762,7 @@ int main() {
 ```c++
 #include <iostream>
 #include <stdio.h>
-#define setting ios_base :: sync_with_stdio(false);cout.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base :: sync_with_stdio(false);cout.tie(NULL)
 using namespace std;
 
 int ipt[110][110];
@@ -740,7 +800,7 @@ void bfs() {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     scanf("%d %d", &y, &x);
     for (int i = 1; i <= x; ++i) {
         for (int j = 1; j <= y; ++j) {
@@ -963,7 +1023,7 @@ int main() {
 #include <iostream>
 #include <vector>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 int n, k;
@@ -1012,7 +1072,7 @@ void bfs() {
 }
 
 int main(){
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> k;
     for (int i = 1; i <= n; ++i) {
         cin >> ipt[i];
@@ -1029,7 +1089,7 @@ int main(){
 ```c++
 #include <iostream>
 #include <math.h>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 int sosu[10011], ss, fs, front, rear, ans, visit[10010];
@@ -1100,7 +1160,7 @@ void bfs() {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     Eratos();
     cin >> ss >> fs;
     if(ss > fs) {
@@ -1117,7 +1177,7 @@ int main() {
 * 로봇
 ```c++
 #include <iostream>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 int n, m, front, rear, visit[110][110][5];
@@ -1159,7 +1219,7 @@ int bfs() {
 }
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n >> m;
     for (int i = 1; i <= n; ++i) {
         for (int j = 1; j <= m; ++j) {
@@ -1179,7 +1239,7 @@ int main() {
 ```c++
 #include <iostream>
 #include <vector>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
  
 int n, m, k;
@@ -1239,7 +1299,7 @@ void bfs() {
 }
  
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> m >> n >> k;
     for (int i = 1; i <= k; ++i) {
         int tmp = 0;
@@ -1281,7 +1341,7 @@ int main() {
 * Tutorial : 그리디(Greedy - 탐욕, 욕심쟁이) 알고리즘
 ```c++
 #include <iostream>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 //  1  2  4  8 16  g
 int a, b, c, d, e, n;
@@ -1292,7 +1352,7 @@ int result[6] = {
 int ans;
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> a >> b >> c >> d >> e >> n;
     for (int i = 1; i <= e; ++i) {
         if((n)/16 > 0) {
@@ -1344,14 +1404,14 @@ int main() {
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 
 int m, s, c, livedCowPo[210];
 vector<int> gangok;
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> m >> s >> c;
     for (int i = 0; i < c; ++i) {
         cin >> livedCowPo[i];
@@ -1380,7 +1440,7 @@ int main() {
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#define setting ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
 //#define DEBUG
 using namespace std;
  
@@ -1422,7 +1482,7 @@ struct DebugTool {
  
 int main()
 {
-    setting
+    INPUT_OUTPUT_SETTING
     cin >> n;
     for (int i = 0; i < n; i++) {
         int a;
@@ -1461,7 +1521,7 @@ int main()
 #include <iostream>
 #include <string>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
 //#define DEBUG
 using namespace std;
 
@@ -1499,7 +1559,7 @@ struct DebugTools {
 } debugTool;
 
 int main() {
-    setting
+    INPUT_OUTPUT_SETTING
     cin >> n;
     for (int i = 1; i <= n; ++i) {
         cin >> yaks[i].x >> yaks[i].y;
@@ -1538,7 +1598,7 @@ int main() {
 ```c++
 #include <iostream>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
 //#define DEBUG
 using namespace std;
 
@@ -1549,7 +1609,7 @@ struct Week {
 } weeks[10010];
 
 int main() {
-    setting
+    INPUT_OUTPUT_SETTING
     cin >> n >> s;
     for (int i = 1; i <= n; ++i) {
         cin >> weeks[i].c >> weeks[i].y;
@@ -1568,13 +1628,13 @@ int main() {
 ```c++
 #include <iostream>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
 using namespace std;
 
 int n, ch[1010];
 
 int main() {
-    setting
+    INPUT_OUTPUT_SETTING
     cin >> n;
     for (int i = 0; i < n; ++i) {
         cin >> ch[i];
@@ -1598,7 +1658,7 @@ int main() {
 ```c++
 #include <iostream>
 #include <algorithm>
-#define setting ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL)
 using namespace std;
 //  1  5  10  50 100  500
 int a, b, c, d, e, f, n;
@@ -1608,7 +1668,7 @@ int result[7] = {
 };
 
 int main() {
-    setting;
+    INPUT_OUTPUT_SETTING;
     cin >> n;
     cin >> f >> e >> d >> c >> b >> a;
     int ipt[7] = {
@@ -1666,6 +1726,165 @@ int main() {
     cout << "\n";
 
     return 0;
+}
+// [출처] https://github.com/siwoo1123/cStd
+```
+* 택배
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
+using namespace std;
+
+struct Parcel {
+    int bo, ba, ga;
+    bool operator<(const Parcel &r) const {
+        return ba < r.ba;
+    }
+};
+
+vector<Parcel> parcel;
+vector<int> truckCapacityByRegion;
+int c, n, m, ans;
+
+struct ToolWithVector {
+    void print(vector<int> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<long> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<long long> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<char> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i];
+        }
+        cout << "\n";
+    }
+    void print(vector<double> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    void print(vector<float> a) {
+        for (int i = 0; i < a.size(); ++i) {
+            cout << a[i] << " ";
+        }
+        cout << "\n";
+    }
+    int max(vector<int> a, int s, int f) {
+        //      2147483647
+        int b = 0000000000;
+        for (int i = s; i < f; ++i) {
+            if(a[i] > b) b=a[i];
+        }
+        return b;
+    }
+    int min(vector<int> a, int s, int f) {
+        //      2147483647
+        int b = 2147483647;
+        for (int i = s; i < f; ++i) {
+            if(a[i] < b) b=a[i];
+        }
+        return b;
+    }
+} VecTool;
+
+int main () {
+    INPUT_OUTPUT_SETTING
+    cin >> n >> c >> m;
+    for (int i = 0; i < m; ++i) {
+        Parcel goingToPushback;
+        cin >> goingToPushback.bo >> goingToPushback.ba >> goingToPushback.ga;
+        parcel.push_back(goingToPushback);
+    }
+    truckCapacityByRegion.resize(n);
+    sort(parcel.begin(), parcel.end());
+    for (Parcel x : parcel) {
+        int remainingCapacity = c - VecTool.max(truckCapacityByRegion, x.bo - 1, x.ba-1);
+        if(remainingCapacity > x.ga) {
+            for (int i = x.bo-1; i < x.ba-1; ++i) {
+                truckCapacityByRegion[i] += x.ga;
+            }
+            ans += x.ga;
+        } else {
+            for (int i = x.bo-1; i < x.ba-1; ++i) {
+                truckCapacityByRegion[i] += remainingCapacity;
+            }
+            ans += remainingCapacity;
+        }
+    }
+    cout << ans << "\n";
+    return 0;
+}
+// [출처] https://github.com/siwoo1123/cStd
+```
+* 공주님의 정원
+```c++
+#include <iostream>
+#include <algorithm>
+#include <vector>
+#define INPUT_OUTPUT_SETTING ios_base::sync_with_stdio(false);cout.tie(NULL);cin.tie(NULL);
+using namespace std;
+
+struct Flower{
+    int pinunnal, jinunnal;
+    bool operator<(const Flower &r) const {
+        if(pinunnal == r.pinunnal) {
+            return jinunnal < r.jinunnal;
+        }
+        return pinunnal < r.pinunnal;
+    }
+} flower[100010];
+
+int DateToInt(int month, int day) {
+    return (month*100) + day;
+}
+
+int n, ans;
+
+int main() {
+    INPUT_OUTPUT_SETTING
+    cin >> n;
+    for (int i = 0; i < n; ++i) {
+        int month, day, a = 0;
+        cin >> month >> day;
+        flower[i].pinunnal = DateToInt(month, day);
+        cin >> month >> day;
+        flower[i].jinunnal = DateToInt(month, day);
+    }
+    //sort(flower, flower+n);
+    int giJunJom = 301;
+    int gguctNaNunJom;
+    while (true) {
+        gguctNaNunJom = 0;
+        for (int i = 0; i < n; ++i) {
+            if(flower[i].pinunnal <= giJunJom && giJunJom < flower[i].jinunnal) {
+                if(flower[i].jinunnal > gguctNaNunJom) gguctNaNunJom = flower[i].jinunnal;
+            }
+        }
+        giJunJom=gguctNaNunJom;
+        ans++;
+        if(giJunJom == 0) {
+            cout << "0" << "\n";
+            return 0;
+        }
+        if(giJunJom > 1130) break;
+    }
+    cout << ans << "\n";
 }
 // [출처] https://github.com/siwoo1123/cStd
 ```
